@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                         if(positionNome == -1){
                             filmeController.insertFilme(_filme)
                         }else{
-                            Toast.makeText(this, "Nome de filme já existe", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Nome de filme já existe, favor tentar novamente com outro nome!", Toast.LENGTH_SHORT).show()
                         }
 
 
@@ -127,14 +127,6 @@ class MainActivity : AppCompatActivity() {
             }
             else -> { false }
         }
-    }
-
-    private fun adicionaFilmesLista(){
-        //var filme1 = Filme(1, "Capitão América", "2011", "Marvel Studios", "Marvel", "124", false, 8.0, "Ação")
-//        var filme2 =  Filme(2, "Homem nas Trevas", "2016", null, "Ghost House Pictures", "88", true, 9.0, "Terror")
-
-//        filmeController.insertFilme(filme1);
-//        filmeController.insertFilme(filme2);
     }
 
     fun updateFilmeList(_filmeList: MutableList<Filme>){

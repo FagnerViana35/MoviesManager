@@ -14,6 +14,7 @@
     <string-array name="generoFilmeSp">
         <item>Comedia</item>
         <item>Aventura</item>
+        <item>Ação</item>
         <item>Terror</item>
         <item>Romance</item>
         <item>Drana</item>
