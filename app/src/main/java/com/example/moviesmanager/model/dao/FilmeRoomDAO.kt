@@ -19,7 +19,7 @@ interface FilmeRoomDAO {
 
 
     @Query("SELECT * FROM $FILME_TABLE ORDER BY $NAME_COLUMN")
-    fun retrieveFilme():MutableList<Filme>
+    fun retrieveFilmes():MutableList<Filme>
 
     @Update
     fun updateFilme(filme: Filme): Int

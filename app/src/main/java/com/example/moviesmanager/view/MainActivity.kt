@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.moviesmanager.R
@@ -46,15 +47,24 @@ class MainActivity : AppCompatActivity() {
         ) { result ->
             if (result.resultCode == RESULT_OK) {
                 val filme = result.data?.getParcelableExtra<Filme>(EXTRA_FILMES)
-
                 filme?.let { _filme ->
-                        val position = listafilmes.indexOfFirst { it.id == _filme.id }
+                    val position = listafilmes.indexOfFirst { it.id == _filme.id }
+                    val positionNome = listafilmes.indexOfFirst { it.nome == _filme.nome }
+
                         if (position != -1) {
                             filmeController.editFilmes(_filme)
                         }
                     else {
-                        filmeController.insertFilme(_filme)
+                        if(positionNome == -1){
+                            filmeController.insertFilme(_filme)
+                        }else{
+                            Toast.makeText(this, "Nome de filme já existe", Toast.LENGTH_SHORT).show()
+                        }
+
+
                     }
+
+
                     adaptadorFilme.notifyDataSetChanged()
                 }
             }

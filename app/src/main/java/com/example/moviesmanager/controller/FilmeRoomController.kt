@@ -29,7 +29,7 @@ class FilmeRoomController(private val mainActivity: MainActivity) {
         object : AsyncTask<Unit, Unit, MutableList<Filme>>() {
             override fun doInBackground(vararg p0: Unit?): MutableList<Filme> {
                 val returnList = mutableListOf<Filme>()
-                returnList.addAll(filmeDaoImpl.retrieveFilme())
+                returnList.addAll(filmeDaoImpl.retrieveFilmes())
                 return returnList
             }
             override fun onPostExecute(result: MutableList<Filme>?) {
