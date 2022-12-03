@@ -5,13 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
-import com.example.moviesmanager.R
 import com.example.moviesmanager.databinding.ActivityFilmeBinding
-import com.example.moviesmanager.databinding.ActivityMainBinding
 import com.example.moviesmanager.model.Constant.EXTRA_FILMES
 import com.example.moviesmanager.model.Constant.VIEW_FILMES
-import com.example.moviesmanager.model.Filme
-import java.text.FieldPosition
+import com.example.moviesmanager.model.entity.Filme
 import java.util.*
 
 class FilmeActivity : AppCompatActivity() {

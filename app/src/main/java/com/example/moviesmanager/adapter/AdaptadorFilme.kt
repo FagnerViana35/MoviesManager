@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.moviesmanager.R
-import com.example.moviesmanager.model.Filme
+import com.example.moviesmanager.model.entity.Filme
 
 class AdaptadorFilme (
     context: Context,

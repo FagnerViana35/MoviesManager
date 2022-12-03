@@ -12,15 +12,20 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.moviesmanager.R
 import com.example.moviesmanager.adapter.AdaptadorFilme
+import com.example.moviesmanager.controller.FilmeRoomController
 import com.example.moviesmanager.databinding.ActivityMainBinding
 import com.example.moviesmanager.model.Constant.EXTRA_FILMES
 import com.example.moviesmanager.model.Constant.VIEW_FILMES
-import com.example.moviesmanager.model.Filme
+import com.example.moviesmanager.model.entity.Filme
 
 class MainActivity : AppCompatActivity() {
 
     private val amb: ActivityMainBinding by lazy{
         ActivityMainBinding.inflate(layoutInflater)
+    }
+
+    private val filmeController: FilmeRoomController by lazy {
+        FilmeRoomController(this)
     }
 
     private val listafilmes: MutableList<Filme> = mutableListOf()
@@ -32,8 +37,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(amb.root);
-        adicionaFilmesLista();
-
+        filmeController.getFilmes();
         adaptadorFilme = AdaptadorFilme(this, listafilmes)
         amb.filmesLV.adapter = adaptadorFilme
 
@@ -43,14 +47,13 @@ class MainActivity : AppCompatActivity() {
             if (result.resultCode == RESULT_OK) {
                 val filme = result.data?.getParcelableExtra<Filme>(EXTRA_FILMES)
 
-                filme?.let { _filme->
-                    val position = listafilmes.indexOfFirst { it.id == _filme.id }
-                    if (position != -1) {
-
-                        listafilmes[position] = _filme
-                    }
+                filme?.let { _filme ->
+                        val position = listafilmes.indexOfFirst { it.id == _filme.id }
+                        if (position != -1) {
+                            filmeController.editFilmes(_filme)
+                        }
                     else {
-                        listafilmes.add(_filme)
+                        filmeController.insertFilme(_filme)
                     }
                     adaptadorFilme.notifyDataSetChanged()
                 }
@@ -67,6 +70,7 @@ class MainActivity : AppCompatActivity() {
                 filmeIntent.putExtra(VIEW_FILMES, true)
                 startActivity(filmeIntent)
             }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -95,10 +99,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         val position = (item.menuInfo as AdapterView.AdapterContextMenuInfo).position
+        val filme = listafilmes[position]
 
         return when(item.itemId) {
             R.id.editFilme -> {
-                val filme = listafilmes[position]
                 val filmeIntent = Intent(this, FilmeActivity::class.java)
                 filmeIntent.putExtra(EXTRA_FILMES, filme)
                 filmeIntent.putExtra(VIEW_FILMES, false)
@@ -106,7 +110,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.removeFilme -> {
-                listafilmes.removeAt(position)
+                filmeController.removeFilmes(filme)
                 adaptadorFilme.notifyDataSetChanged()
 
                 true
@@ -116,11 +120,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun adicionaFilmesLista(){
-        listafilmes.add(
-            Filme(3, "Capitão América", "2011", "Marvel Studios", "Marvel", "124", false, 8.0, "Ação")
-        )
-        listafilmes.add(
-            Filme(4, "Homem nas Trevas", "2016", null, "Ghost House Pictures", "88", true, 9.0, "Terror")
-        )
+        //var filme1 = Filme(1, "Capitão América", "2011", "Marvel Studios", "Marvel", "124", false, 8.0, "Ação")
+//        var filme2 =  Filme(2, "Homem nas Trevas", "2016", null, "Ghost House Pictures", "88", true, 9.0, "Terror")
+
+//        filmeController.insertFilme(filme1);
+//        filmeController.insertFilme(filme2);
+    }
+
+    fun updateFilmeList(_filmeList: MutableList<Filme>){
+        listafilmes.clear()
+        listafilmes.addAll(_filmeList)
+        adaptadorFilme.notifyDataSetChanged()
     }
 }
