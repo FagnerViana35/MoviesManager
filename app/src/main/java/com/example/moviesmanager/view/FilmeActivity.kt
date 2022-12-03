@@ -48,11 +48,14 @@ class FilmeActivity : AppCompatActivity() {
             afb.nomeEt.isEnabled = false
             afb.notaFilmeEt.isEnabled = false
             afb.duracaoFilmeEt.isEnabled = false
+            afb.estudioEt.isEnabled = false
             afb.produtoraEt.isEnabled = false
             afb.lancamentoEt.isEnabled = false
             afb.generoFilmeSp.isEnabled = false
             afb.assistidoCk.isEnabled = false
             afb.saveFilmeBt.isEnabled = false
+
+            afb.saveFilmeBt.visibility = View.GONE
         }
 
         var selectGenre: String = "";
@@ -62,10 +65,11 @@ class FilmeActivity : AppCompatActivity() {
                 selectGenre = parent?.getItemAtPosition(position).toString()
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {}
-
         }
 
         afb.saveFilmeBt.setOnClickListener {
+            var nota = if (afb.notaFilmeEt.text.toString() == "") null else afb.notaFilmeEt.text.toString().toDouble()
+
             val filme = Filme(
                 id = receivedFilme?.id?:Random(System.currentTimeMillis()).nextInt(),
                 nome = afb.nomeEt.text.toString(),
@@ -74,7 +78,7 @@ class FilmeActivity : AppCompatActivity() {
                 produtora = afb.produtoraEt.text.toString(),
                 duracaoFilme = afb.duracaoFilmeEt.text.toString(),
                 assistido = afb.assistidoCk.isChecked,
-                notaFilme = afb.notaFilmeEt.text.toString().toDouble(),
+                notaFilme = nota,
                 generoFilme = selectGenre,
             )
             val resultIntent = Intent()

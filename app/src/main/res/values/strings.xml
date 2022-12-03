@@ -22,4 +22,6 @@
     </string-array>
     <string name="save">Salvar</string>
     <string name="adicionar_filmes">Adicionar Filme</string>
+    <string name="remover_filme">Excluir</string>
+    <string name="editar_filme">Editar</string>
 </resources>

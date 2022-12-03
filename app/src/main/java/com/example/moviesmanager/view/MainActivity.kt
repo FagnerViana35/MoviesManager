@@ -3,14 +3,18 @@ package com.example.moviesmanager.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.moviesmanager.R
 import com.example.moviesmanager.adapter.AdaptadorFilme
 import com.example.moviesmanager.databinding.ActivityMainBinding
 import com.example.moviesmanager.model.Constant.EXTRA_FILMES
+import com.example.moviesmanager.model.Constant.VIEW_FILMES
 import com.example.moviesmanager.model.Filme
 
 class MainActivity : AppCompatActivity() {
@@ -52,6 +56,17 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        registerForContextMenu(amb.filmesLV)
+
+        amb.filmesLV.onItemClickListener =
+            AdapterView.OnItemClickListener { _, _, position, _ ->
+                val filme = listafilmes[position]
+                val filmeIntent = Intent(this@MainActivity, FilmeActivity::class.java)
+                filmeIntent.putExtra(EXTRA_FILMES, filme)
+                filmeIntent.putExtra(VIEW_FILMES, true)
+                startActivity(filmeIntent)
+            }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -67,6 +82,36 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             else -> {false}
+        }
+    }
+
+    override fun onCreateContextMenu(
+        menu: ContextMenu?,
+        v: View?,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        menuInflater.inflate(R.menu.menu_main_context, menu)
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        val position = (item.menuInfo as AdapterView.AdapterContextMenuInfo).position
+
+        return when(item.itemId) {
+            R.id.editFilme -> {
+                val filme = listafilmes[position]
+                val filmeIntent = Intent(this, FilmeActivity::class.java)
+                filmeIntent.putExtra(EXTRA_FILMES, filme)
+                filmeIntent.putExtra(VIEW_FILMES, false)
+                marl.launch(filmeIntent)
+                true
+            }
+            R.id.removeFilme -> {
+                listafilmes.removeAt(position)
+                adaptadorFilme.notifyDataSetChanged()
+
+                true
+            }
+            else -> { false }
         }
     }
 
