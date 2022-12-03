@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/nomeFilme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/nomefilme"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/anoLancamento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ano_Lancamento"
+        android:textSize="18sp"
+        />
+
+    <TextView
+        android:id="@+id/genero"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/genero"
+        android:textSize="18sp"
+        />
+    <TextView
+        android:id="@+id/duracao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/duracao"
+        android:textSize="18sp"
+        />
+
+</LinearLayout>

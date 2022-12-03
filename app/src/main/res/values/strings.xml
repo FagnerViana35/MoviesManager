@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MoviesManager</string>
+    <string name="nomefilme">Nome: </string>
+    <string name="ano_Lancamento">Lançamento: </string>
+    <string name="genero">Genero: </string>
+    <string name="duracao">Duração: </string>
 </resources>

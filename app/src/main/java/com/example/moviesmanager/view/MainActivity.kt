@@ -3,6 +3,7 @@ package com.example.moviesmanager.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.moviesmanager.R
+import com.example.moviesmanager.adapter.AdaptadorFilme
 import com.example.moviesmanager.databinding.ActivityMainBinding
 import com.example.moviesmanager.model.Filme
 
@@ -14,12 +15,15 @@ class MainActivity : AppCompatActivity() {
 
     private val listafilmes: MutableList<Filme> = mutableListOf()
 
-
+    private lateinit var adaptadorFilme: AdaptadorFilme;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(amb.root);
         adicionaFilmesLista();
+
+        adaptadorFilme = AdaptadorFilme(this, listafilmes)
+        amb.filmesLV.adapter = adaptadorFilme
     }
 
     private fun adicionaFilmesLista(){
