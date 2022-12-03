@@ -72,12 +72,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun adicionaFilmesLista(){
         listafilmes.add(
-            Filme(1, "Homem Aranha", "2002", "Marvel Studios", "Marvel", "121", true, 9.0, "Ação")
-        )
-        listafilmes.add(
-            Filme(2, "Adão Negro", "2022", "DC", "DC Filmes", "125", true, 10.0, "Ação")
-        )
-        listafilmes.add(
             Filme(3, "Capitão América", "2011", "Marvel Studios", "Marvel", "124", false, 8.0, "Ação")
         )
         listafilmes.add(

@@ -4,12 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
 import com.example.moviesmanager.R
 import com.example.moviesmanager.databinding.ActivityFilmeBinding
 import com.example.moviesmanager.databinding.ActivityMainBinding
 import com.example.moviesmanager.model.Constant.EXTRA_FILMES
 import com.example.moviesmanager.model.Constant.VIEW_FILMES
 import com.example.moviesmanager.model.Filme
+import java.text.FieldPosition
 import java.util.*
 
 class FilmeActivity : AppCompatActivity() {
@@ -53,6 +55,16 @@ class FilmeActivity : AppCompatActivity() {
             afb.saveFilmeBt.isEnabled = false
         }
 
+        var selectGenre: String = "";
+
+        afb.generoFilmeSp.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                selectGenre = parent?.getItemAtPosition(position).toString()
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+
+        }
+
         afb.saveFilmeBt.setOnClickListener {
             val filme = Filme(
                 id = receivedFilme?.id?:Random(System.currentTimeMillis()).nextInt(),
@@ -63,7 +75,7 @@ class FilmeActivity : AppCompatActivity() {
                 duracaoFilme = afb.duracaoFilmeEt.text.toString(),
                 assistido = afb.assistidoCk.isChecked,
                 notaFilme = afb.notaFilmeEt.text.toString().toDouble(),
-                generoFilme = afb.generoFilmeSp.toString(),
+                generoFilme = selectGenre,
             )
             val resultIntent = Intent()
             resultIntent.putExtra(EXTRA_FILMES, filme)
