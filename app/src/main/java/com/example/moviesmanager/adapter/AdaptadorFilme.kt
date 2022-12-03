@@ -37,10 +37,10 @@ class AdaptadorFilme (
         }
 
         with(filmeTileView?.tag as TileFilmeHolder) {
-            nome.text = filme.nome
-            lancamento.text = filme.lancamento
-            genero.text = filme.generoFilme
-            duracao.text = filme.duracaoFilme
+            nome.text = "Nome: " + filme.nome
+            lancamento.text = "Lançamento: " + filme.lancamento
+            genero.text = "Genero: " + filme.generoFilme
+            duracao.text = "Duração: " +filme.duracaoFilme
         }
 
         return filmeTileView

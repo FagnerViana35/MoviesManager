@@ -4,4 +4,22 @@
     <string name="ano_Lancamento">Lançamento: </string>
     <string name="genero">Genero: </string>
     <string name="duracao">Duração: </string>
+    <string name="nomeEt">"Nome: "</string>
+    <string name="lancamentoEt">Lançamento: </string>
+    <string name="estudioEt">Estudio: </string>
+    <string name="produtoraEt">Produtora: </string>
+    <string name="duracaoFilmeEt">Duração: </string>
+    <string name="assistidoEt">Assistido: </string>
+    <string name="notaFilmeEt">Nota: </string>
+    <string-array name="generoFilmeSp">
+        <item>Comedia</item>
+        <item>Aventura</item>
+        <item>Terror</item>
+        <item>Romance</item>
+        <item>Drana</item>
+        <item>Ficção Científica</item>
+        <item>Suspense</item>
+    </string-array>
+    <string name="save">Salvar</string>
+    <string name="adicionar_filmes">Adicionar Filme</string>
 </resources>

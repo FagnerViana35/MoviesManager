@@ -1,10 +1,16 @@
 package com.example.moviesmanager.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.moviesmanager.R
 import com.example.moviesmanager.adapter.AdaptadorFilme
 import com.example.moviesmanager.databinding.ActivityMainBinding
+import com.example.moviesmanager.model.Constant.EXTRA_FILMES
 import com.example.moviesmanager.model.Filme
 
 class MainActivity : AppCompatActivity() {
@@ -17,6 +23,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var adaptadorFilme: AdaptadorFilme;
 
+    private lateinit var marl: ActivityResultLauncher<Intent>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(amb.root);
@@ -24,6 +32,42 @@ class MainActivity : AppCompatActivity() {
 
         adaptadorFilme = AdaptadorFilme(this, listafilmes)
         amb.filmesLV.adapter = adaptadorFilme
+
+        marl = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult(),
+        ) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val filme = result.data?.getParcelableExtra<Filme>(EXTRA_FILMES)
+
+                filme?.let { _filme->
+                    val position = listafilmes.indexOfFirst { it.id == _filme.id }
+                    if (position != -1) {
+
+                        listafilmes[position] = _filme
+                    }
+                    else {
+                        listafilmes.add(_filme)
+                    }
+                    adaptadorFilme.notifyDataSetChanged()
+                }
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.addFilme -> {
+                val intentIntegralActivity = Intent(this,FilmeActivity::class.java)
+                marl.launch(intentIntegralActivity)
+                true
+            }
+            else -> {false}
+        }
     }
 
     private fun adicionaFilmesLista(){
